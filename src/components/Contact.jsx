@@ -1,122 +1,271 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState } from "react";
+import {
+  FiMail,
+  FiGithub,
+  FiLinkedin,
+  FiArrowUpRight,
+  FiSend,
+  FiMapPin,
+} from "react-icons/fi";
+import "./Contact.css";
 
 const Contact = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
   });
-  
-  // Parallax translation for the big text
-  const y = useTransform(scrollYProgress, [0, 1], ["-20%", "30%"]);
+
+  const [status, setStatus] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setIsSending(true);
+    setStatus("");
+
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to send message.");
+      }
+
+      // Success
+      setStatus("success");
+
+      // Clear form only after successful email sending
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
+      setStatus("error");
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
-    <section ref={ref} id="contact" className="bg-[#0a0a0a] w-full min-h-screen relative overflow-hidden flex items-end pt-32 pb-0 md:pb-0 border-t border-gray-900">
-      {/* Huge Background Text */}
-      <motion.div 
-        style={{ y }}
-        className="absolute top-0 left-0 w-full h-full flex flex-col justify-start items-center overflow-hidden pointer-events-none z-0 pt-16 md:pt-12"
-      >
-        <h1 
-          className="text-[25vw] leading-[0.75] font-black text-white uppercase tracking-tighter select-none scale-y-[1.6] origin-top"
-          style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
-        >
-          Contact
-        </h1>
-      </motion.div>
+    <section className="contact-section" id="contact">
+      <div className="contact-glow contact-glow-one"></div>
+      <div className="contact-glow contact-glow-two"></div>
 
-      {/* Form Card Overlay */}
-      <div className="relative z-10 w-full flex justify-end items-end">
-        <div 
-          data-aos="fade-up"
-          className="bg-[#ff2a2a] w-full md:w-[85%] lg:w-[75%] p-8 md:p-16 text-white flex flex-col justify-between"
-        >
-          <div className="text-xs font-bold tracking-[0.2em] mb-12 md:mb-20 uppercase opacity-90">
-            Reach Us
+      <div className="contact-grid"></div>
+
+      <div className="contact-container">
+        {/* Section Heading */}
+        <div className="contact-heading">
+          <span className="contact-eyebrow">GET IN TOUCH</span>
+
+          <h2>
+            Let's build
+            <span> something.</span>
+          </h2>
+
+          <p>
+            Have an idea, opportunity, or project in mind?
+            <br />
+            I'd love to hear about it.
+          </p>
+        </div>
+
+        {/* Main Contact Content */}
+        <div className="contact-content">
+          {/* Left Side */}
+          <div className="contact-info">
+            <div className="contact-info-header">
+              <span className="small-label">CONTACT</span>
+
+              <h3>Let's connect.</h3>
+
+              <p>
+                Whether you're looking for a developer, have a project idea, or
+                simply want to say hello — feel free to reach out.
+              </p>
+            </div>
+
+            <div className="contact-links">
+              {/* Email */}
+              <a
+                href="mailto:shaikhamad67612@gmail.com"
+                className="contact-link"
+              >
+                <div className="contact-link-icon">
+                  <FiMail />
+                </div>
+
+                <div className="contact-link-text">
+                  <span>Email</span>
+                  <strong>shaikhamad67612@gmail.com</strong>
+                </div>
+
+                <FiArrowUpRight className="contact-arrow" />
+              </a>
+
+              {/* GitHub */}
+              <a
+                href="https://github.com/hhhhhhh18"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-link"
+              >
+                <div className="contact-link-icon">
+                  <FiGithub />
+                </div>
+
+                <div className="contact-link-text">
+                  <span>GitHub</span>
+                  <strong>github.com/hhhhhhh18</strong>
+                </div>
+
+                <FiArrowUpRight className="contact-arrow" />
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-link"
+              >
+                <div className="contact-link-icon">
+                  <FiLinkedin />
+                </div>
+
+                <div className="contact-link-text">
+                  <span>LinkedIn</span>
+                  <strong>Connect with me</strong>
+                </div>
+
+                <FiArrowUpRight className="contact-arrow" />
+              </a>
+            </div>
+
+            {/* Location */}
+            <div className="contact-location">
+              <FiMapPin />
+              <span>Hyderabad, India</span>
+            </div>
           </div>
 
-          <form className="flex flex-col gap-12 md:gap-16 w-full">
-            <div className="flex flex-col md:flex-row gap-12 md:gap-20 w-full">
-              {/* Left Column */}
-              <div className="flex-1 flex flex-col gap-10">
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    id="firstName" 
-                    placeholder="First Name" 
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
-                  />
-                </div>
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    id="lastName" 
-                    placeholder="Last Name" 
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
-                  />
-                </div>
-                <div className="relative">
-                  <input 
-                    type="email" 
-                    id="email" 
-                    placeholder="Email" 
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
-                  />
-                </div>
-              </div>
+          {/* Right Side */}
+          <div className="contact-form-wrapper">
+            <div className="form-top">
+              <span className="small-label">SEND A MESSAGE</span>
 
-              {/* Right Column */}
-              <div className="flex-1 flex flex-col">
-                <div className="relative h-full flex flex-col">
-                  <textarea 
-                    id="message" 
-                    placeholder="Type your message here" 
-                    className="w-full h-full min-h-[120px] bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium resize-none rounded-none"
-                  ></textarea>
-                </div>
+              <div className="form-status">
+                <span></span>
+                Open to opportunities
               </div>
             </div>
 
-            {/* Bottom Section */}
-            <div className="flex flex-col md:flex-row gap-12 mt-4">
-              {/* Left text */}
-              <div className="flex-1 flex items-start gap-4 text-sm font-medium text-white/90">
-                <input 
-                  type="checkbox" 
-                  id="permission" 
-                  className="mt-1 w-4 h-4 rounded-sm border-white/40 bg-transparent text-white focus:ring-white focus:ring-offset-0 focus:ring-offset-transparent cursor-pointer" 
-                  style={{ accentColor: "white" }}
+            <form onSubmit={handleSubmit} className="contact-form">
+              {/* Name */}
+              <div className="form-group">
+                <label htmlFor="name">Your Name</label>
+
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="John Doe"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  disabled={isSending}
                 />
-                <label htmlFor="permission" className="cursor-pointer max-w-[280px] leading-snug">
-                  I give permission to contact me at this email address.
-                </label>
               </div>
 
-              {/* Right text & button */}
-              <div className="flex-1 flex flex-col gap-8 text-xs text-white/70 font-medium">
-                <p className="leading-relaxed max-w-[400px]">
-                  This site is protected by reCAPTCHA and the Google <a href="#" className="underline hover:text-white transition-colors">Privacy Policy</a> and <a href="#" className="underline hover:text-white transition-colors">Terms of Service</a> apply.
-                </p>
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6">
-                  <p className="max-w-[250px] leading-relaxed">
-                    For information on how to unsubscribe, please review our <a href="#" className="underline hover:text-white transition-colors">privacy policy</a>.
-                  </p>
-                  
-                  <button 
-                    type="submit" 
-                    className="px-8 py-3 rounded-full border border-white/40 text-white font-bold flex items-center justify-center gap-3 hover:bg-white hover:text-[#ff2a2a] transition-all duration-300 group whitespace-nowrap self-start sm:self-auto"
-                  >
-                    Send
-                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
+              {/* Email */}
+              <div className="form-group">
+                <label htmlFor="email">Your Email</label>
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="john@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  disabled={isSending}
+                />
+              </div>
+
+              {/* Message */}
+              <div className="form-group">
+                <label htmlFor="message">Message</label>
+
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Tell me about your project..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  disabled={isSending}
+                ></textarea>
+              </div>
+
+              {/* Send Button */}
+              <button
+                type="submit"
+                className="send-button"
+                disabled={isSending}
+              >
+                <span>{isSending ? "Sending..." : "Send Message"}</span>
+
+                {!isSending && <FiSend />}
+              </button>
+
+              {/* Success Message */}
+              {status === "success" && (
+                <div className="contact-success">
+                  ✓ Message sent successfully! I'll get back to you soon.
                 </div>
-              </div>
-            </div>
-          </form>
+              )}
 
+              {/* Error Message */}
+              {status === "error" && (
+                <div className="contact-error">
+                  ✕ Something went wrong. Please try again.
+                </div>
+              )}
+            </form>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="contact-footer">
+          <div className="footer-line"></div>
+
+          <div className="footer-content">
+            <span>© 2026 Shaik Hamad</span>
+
+            <span className="footer-center">Built with React</span>
+
+            <span>Full Stack Developer</span>
+          </div>
         </div>
       </div>
     </section>

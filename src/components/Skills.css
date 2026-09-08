@@ -1,0 +1,678 @@
+/* =========================================
+   SKILLS SECTION
+========================================= */
+
+.skills-section {
+    --mouse-x: 0;
+    --mouse-y: 0;
+
+    position: relative;
+    min-height: 100vh;
+    padding: 130px 6% 100px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 50% 48%,
+            rgba(255, 40, 40, 0.12),
+            transparent 25%),
+        radial-gradient(circle at 50% 50%,
+            rgba(80, 80, 255, 0.08),
+            transparent 45%),
+        #050505;
+
+    color: white;
+}
+
+
+/* =========================================
+   BACKGROUND GRID
+========================================= */
+
+.skills-grid {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0.15;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px);
+
+    background-size: 70px 70px;
+
+    mask-image: radial-gradient(circle at center,
+            black,
+            transparent 75%);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.skills-heading {
+    position: relative;
+
+    max-width: 800px;
+
+    margin: 0 auto 40px;
+
+    text-align: center;
+
+    z-index: 5;
+}
+
+.skills-small-title {
+    display: inline-block;
+
+    margin-bottom: 12px;
+
+    font-size: 12px;
+
+    letter-spacing: 5px;
+
+    color: #ff3030;
+
+    font-weight: 700;
+}
+
+.skills-heading h2 {
+    margin: 0;
+
+    font-size: clamp(40px, 5vw, 72px);
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+.skills-heading h2 span {
+    color: #ff3030;
+}
+
+.skills-heading p {
+    max-width: 620px;
+
+    margin: 22px auto 0;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   UNIVERSE
+========================================= */
+
+.skills-universe {
+    position: relative;
+
+    width: min(1100px, 100%);
+
+    height: 650px;
+
+    margin: 0 auto;
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   SPHERE GLOW
+========================================= */
+
+.sphere-glow {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 580px;
+    height: 580px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: radial-gradient(circle,
+            rgba(255, 30, 30, 0.18),
+            rgba(255, 30, 30, 0.04) 40%,
+            transparent 70%);
+
+    filter: blur(35px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   3D SPHERE
+========================================= */
+
+.skill-sphere {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 570px;
+    height: 570px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle at 35% 30%,
+            rgba(255, 255, 255, 0.08),
+            transparent 22%),
+        radial-gradient(circle at center,
+            rgba(40, 40, 50, 0.7),
+            rgba(5, 5, 5, 0.98) 72%);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        inset 0 0 60px rgba(255, 255, 255, 0.04),
+        0 0 70px rgba(255, 30, 30, 0.08);
+
+    transition: transform 0.25s ease-out;
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   WIREFRAME RINGS
+========================================= */
+
+.sphere-ring {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+.ring-one {
+    width: 100%;
+    height: 43%;
+
+    animation: rotateSphere 8s linear infinite;
+}
+
+.ring-two {
+    width: 43%;
+    height: 100%;
+
+    animation: rotateSphereReverse 11s linear infinite;
+}
+
+.ring-three {
+    width: 78%;
+    height: 78%;
+
+    transform:
+        translate(-50%, -50%) rotate(45deg);
+
+    animation: rotateSphere 15s linear infinite;
+}
+
+
+/* =========================================
+   SPHERE LINES
+========================================= */
+
+.sphere-horizontal {
+    position: absolute;
+
+    left: 8%;
+    right: 8%;
+
+    top: 50%;
+
+    height: 1px;
+
+    background: rgba(255, 255, 255, 0.14);
+
+    transform: translateY(-50%);
+}
+
+.sphere-vertical {
+    position: absolute;
+
+    top: 8%;
+    bottom: 8%;
+
+    left: 50%;
+
+    width: 1px;
+
+    background: rgba(255, 255, 255, 0.14);
+
+    transform: translateX(-50%);
+}
+
+
+/* =========================================
+   CORE
+========================================= */
+
+.sphere-content {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    z-index: 5;
+}
+
+.core-symbol {
+    margin-bottom: 15px;
+
+    color: #ff3030;
+
+    font-family: monospace;
+
+    font-size: 25px;
+
+    text-shadow:
+        0 0 15px rgba(255, 30, 30, 0.7);
+}
+
+.sphere-content strong {
+    font-size: 25px;
+
+    letter-spacing: 6px;
+
+    line-height: 1.2;
+}
+
+.sphere-content small {
+    margin-top: 10px;
+
+    font-size: 10px;
+
+    letter-spacing: 5px;
+
+    color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* =========================================
+   FLOATING SKILLS
+========================================= */
+
+.skill-orbit {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 5;
+}
+
+.floating-skill {
+    position: absolute;
+
+    left: var(--x);
+    top: var(--y);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    transform: translate(-50%, -50%);
+
+    animation: floatingSkill 4s ease-in-out infinite;
+
+    animation-delay: var(--delay);
+
+    cursor: default;
+
+    z-index: 10;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.skill-logo {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(15, 15, 18, 0.78);
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(255, 255, 255, 0.03);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.skill-logo svg {
+    width: 31px;
+    height: 31px;
+
+    transition: transform 0.3s ease;
+}
+
+.floating-skill:hover .skill-logo {
+    transform: scale(1.18);
+
+    border-color: #ff3030;
+
+    box-shadow:
+        0 0 30px rgba(255, 30, 30, 0.3);
+}
+
+.floating-skill:hover .skill-logo svg {
+    transform: scale(1.08);
+}
+
+
+/* =========================================
+   SKILL NAME
+========================================= */
+
+.skill-name {
+    padding: 4px 8px;
+
+    border-radius: 5px;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+
+    opacity: 0.7;
+
+    transition:
+        color 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.floating-skill:hover .skill-name {
+    color: white;
+
+    opacity: 1;
+}
+
+
+/* =========================================
+   SPECIAL ICONS
+========================================= */
+
+.cpp-icon .skill-logo svg {
+    color: #61dafb;
+}
+
+.ai-icon .skill-logo {
+    border-color: rgba(255, 48, 48, 0.3);
+
+    box-shadow:
+        0 0 25px rgba(255, 48, 48, 0.12);
+}
+
+
+/* =========================================
+   CATEGORY SECTION
+========================================= */
+
+.skill-categories {
+    position: relative;
+
+    width: min(1100px, 100%);
+
+    margin: 30px auto 0;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 12px;
+
+    z-index: 10;
+}
+
+.category {
+    min-height: 120px;
+
+    padding: 20px;
+
+    display: flex;
+
+    gap: 15px;
+
+    border:
+
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.015));
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        rgba(255, 48, 48, 0.4);
+}
+
+.category-number {
+    color: #ff3030;
+
+    font-size: 11px;
+
+    font-family: monospace;
+}
+
+.category h3 {
+    margin: 0 0 8px;
+
+    font-size: 15px;
+}
+
+.category p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes floatingSkill {
+
+    0%,
+    100% {
+        margin-top: 0;
+    }
+
+    50% {
+        margin-top: -13px;
+    }
+}
+
+@keyframes rotateSphere {
+    from {
+        transform:
+            translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes rotateSphereReverse {
+    from {
+        transform:
+            translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+    .skills-section {
+        padding: 160px 20px 100px;
+    }
+
+    .skills-universe {
+        height: 600px;
+    }
+
+    .skill-sphere {
+        width: 300px;
+        height: 300px;
+    }
+
+    .skill-logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .skill-logo svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .skill-categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 600px) {
+    .skills-heading h2 {
+        font-size: 42px;
+
+        letter-spacing: -2px;
+    }
+
+    .skills-heading p {
+        font-size: 14px;
+    }
+
+    .skills-universe {
+        height: 560px;
+    }
+
+    .skill-sphere {
+        width: 230px;
+        height: 230px;
+    }
+
+    .sphere-content strong {
+        font-size: 19px;
+    }
+
+    .core-symbol {
+        font-size: 18px;
+    }
+
+    .skill-logo {
+        width: 42px;
+        height: 42px;
+    }
+
+    .skill-logo svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .skill-name {
+        font-size: 8px;
+    }
+
+    .skill-categories {
+        grid-template-columns: 1fr;
+    }
+
+    /*
+     Keep the outer logos visible on mobile
+     but slightly reduce the universe.
+  */
+
+    .floating-skill:nth-child(n + 15) {
+        display: none;
+    }
+}
