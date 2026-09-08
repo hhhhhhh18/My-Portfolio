@@ -208,7 +208,6 @@ function escapeHtml(text) {
 // -----------------------------
 // Start server
 // -----------------------------
-
-app.listen(PORT, () => {
-  console.log(`Contact API running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Contact API running on port ${PORT}`);
 });
