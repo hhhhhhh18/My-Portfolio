@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import cLogo from "../assets/Skills/c.png";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -109,12 +110,12 @@ const skills = [
   },
   {
     name: "C / C++",
-    icon: FaJsSquare,
+    icon: cLogo,
     category: "Language",
     x: 73,
     y: 75,
     delay: "2.7s",
-    customClass: "cpp-icon",
+    customClass: "cpp-icon image-icon",
   },
 
   // Database
@@ -330,7 +331,11 @@ function Skills() {
                 }}
               >
                 <div className="skill-logo">
-                  <Icon />
+                  {skill.name === "C / C++" ? (
+                    <img src={skill.icon} alt={skill.name} />
+                  ) : (
+                    <Icon />
+                  )}
                 </div>
 
                 <span className="skill-name">{skill.name}</span>

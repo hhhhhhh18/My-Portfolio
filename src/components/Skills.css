@@ -455,8 +455,14 @@
    SPECIAL ICONS
 ========================================= */
 
-.cpp-icon .skill-logo svg {
-    color: #61dafb;
+.cpp-icon .skill-logo {
+    background: rgba(15, 15, 18, 0.78);
+}
+
+.cpp-icon .skill-logo img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
 }
 
 .ai-icon .skill-logo {
