@@ -37,28 +37,9 @@ const Hero = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          // Only autoplay the first time
-          if (!hasAutoPlayed.current) {
-            hasAutoPlayed.current = true;
-
-            const playPromise = video.play();
-
-            if (playPromise !== undefined) {
-              playPromise
-                .then(() => {
-                  setIsPlaying(true);
-                })
-                .catch(() => {
-                  // Browser blocked autoplay.
-                  // User can use Watch Intro manually.
-                  setIsPlaying(false);
-                });
-            }
-          }
-        } else {
+        if (!entry.isIntersecting) {
           // User left Home.
-          // Stop intro video + its audio immediately.
+          // Stop intro video + audio immediately.
           video.pause();
           setIsPlaying(false);
         }
@@ -70,8 +51,47 @@ const Hero = () => {
 
     observer.observe(hero);
 
+    // Start intro ONLY after the preloader has completely finished
+    const handlePreloaderFinished = () => {
+      if (hasAutoPlayed.current) return;
+
+      // Make sure Home is currently visible
+      const rect = hero.getBoundingClientRect();
+
+      const isVisible =
+        rect.top < window.innerHeight * 0.5 &&
+        rect.bottom > window.innerHeight * 0.5;
+
+      if (!isVisible) return;
+
+      hasAutoPlayed.current = true;
+
+      video.currentTime = 0;
+
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+
+            // Stop background music if it is playing
+            window.dispatchEvent(new Event("hero-intro-started"));
+          })
+          .catch(() => {
+            // Browser blocked autoplay.
+            // User can use Watch Intro manually.
+            setIsPlaying(false);
+          });
+      }
+    };
+
+    window.addEventListener("preloader-finished", handlePreloaderFinished);
+
     return () => {
       observer.disconnect();
+
+      window.removeEventListener("preloader-finished", handlePreloaderFinished);
     };
   }, []);
 

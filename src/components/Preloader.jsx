@@ -21,6 +21,9 @@ const Preloader = () => {
     // Finish preloader
     const loadingTimer = setTimeout(() => {
       setIsLoading(false);
+
+      // Tell Hero that the preloader has completely finished
+      window.dispatchEvent(new Event("preloader-finished"));
     }, 5000);
 
     return () => {
